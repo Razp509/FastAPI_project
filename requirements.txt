@@ -10,3 +10,7 @@ pydantic[email]
 
 #hashing
 passlib[bcrypt]
+
+#testing
+httpx==0.24.1
+pytest==7.4.0
