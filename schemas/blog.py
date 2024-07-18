@@ -11,14 +11,14 @@ class CreateBlog(BaseModel):
     @root_validator(pre=True)
     def generate_slug(cls, values):
         if 'title' in values:
-            values['slug'] = values.get("title").replace(" ", ".").lower()
+            values['slug'] = values.get("title").replace(" ", "-").lower()
             return values
         
 
 class ShowBlog(BaseModel):
     title : str
     content : Optional[str]
-    created_at : date
+    created_at : date = date.today() # must specify the default field value
 
     class Config():
         orm_mode = True
