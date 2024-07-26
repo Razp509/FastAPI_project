@@ -5,13 +5,14 @@ Revises: c930c3cea8a7
 Create Date: 2024-06-27 15:42:03.945124
 
 """
-from alembic import op
 import sqlalchemy as sa
+
+from alembic import op
 
 
 # revision identifiers, used by Alembic.
-revision = 'f6617cfa5782'
-down_revision = 'c930c3cea8a7'
+revision = "f6617cfa5782"
+down_revision = "c930c3cea8a7"
 branch_labels = None
 depends_on = None
 

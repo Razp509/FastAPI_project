@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+
 from db.repository.blog import create_new_blog
 from schemas.blog import CreateBlog
 from tests.utils.user import create_random_user

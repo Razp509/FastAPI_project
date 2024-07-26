@@ -1,18 +1,27 @@
-from fastapi import APIRouter, status, HTTPException
-from sqlalchemy.orm import Session
-from fastapi import Depends
 from typing import List
 
+from fastapi import APIRouter
+from fastapi import Depends
+from fastapi import HTTPException
+from fastapi import status
+from sqlalchemy.orm import Session
+
+from db.repository.blog import create_new_blog
+from db.repository.blog import delete_blog
+from db.repository.blog import list_blogs
+from db.repository.blog import retreive_blog
+from db.repository.blog import update_blog
 from db.session import get_db
-from schemas.blog import ShowBlog, CreateBlog, UpdateBlog
-from db.repository.blog import create_new_blog, retreive_blog, list_blogs, update_blog, delete_blog
+from schemas.blog import CreateBlog
+from schemas.blog import ShowBlog
+from schemas.blog import UpdateBlog
 
 
 router = APIRouter()
 
 
 @router.post("/blogs", response_model=ShowBlog, status_code=status.HTTP_201_CREATED)
-async def create_blog(blog : CreateBlog, db : Session = Depends(get_db)):
+async def create_blog(blog: CreateBlog, db: Session = Depends(get_db)):
     blog = create_new_blog(blog=blog, db=db, autor_id=1)
     return blog
 
@@ -21,7 +30,10 @@ async def create_blog(blog : CreateBlog, db : Session = Depends(get_db)):
 def get_blog(id: int, db: Session = Depends(get_db)):
     blog = retreive_blog(id=id, db=db)
     if not blog:
-        raise HTTPException(detail=f"Blog with ID {id} does not exist.", status_code=status.HTTP_404_NOT_FOUND)
+        raise HTTPException(
+            detail=f"Blog with ID {id} does not exist.",
+            status_code=status.HTTP_404_NOT_FOUND,
+        )
     return blog
 
 
@@ -43,5 +55,7 @@ def update_a_blog(id: int, blog: UpdateBlog, db: Session = Depends(get_db)):
 def delete_a_blog(id: int, db: Session = Depends(get_db)):
     message = delete_blog(id=id, author_id=1, db=db)
     if message.get("error"):
-        raise HTTPException(detail=message.get("error"), status_code=status.HTTP_400_BAD_REQUEST)
-    return {"msg":f"Successfully deleted blog with id {id}"}
+        raise HTTPException(
+            detail=message.get("error"), status_code=status.HTTP_400_BAD_REQUEST
+        )
+    return {"msg": f"Successfully deleted blog with id {id}"}

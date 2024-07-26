@@ -1,8 +1,9 @@
 import os
+from pathlib import Path
+
 from dotenv import load_dotenv
 
-from pathlib import Path
-env_path = Path('.') / '.env'
+env_path = Path(".") / ".env"
 load_dotenv(dotenv_path=env_path)
 
 
@@ -15,9 +16,7 @@ class Settings:
     DB_NAME = os.environ.get("DB_NAME")
     DB_USER = os.environ.get("DB_USER")
     DB_PASS = os.environ.get("DB_PASS")
-    DB_URL = (f"postgresql://{DB_USER}:"
-        f"{DB_PASS}@{DB_HOST}:"
-        f"{DB_PORT}/{DB_NAME}")
-    
-    
+    DB_URL = f"postgresql://{DB_USER}:" f"{DB_PASS}@{DB_HOST}:" f"{DB_PORT}/{DB_NAME}"
+
+
 settings = Settings()
