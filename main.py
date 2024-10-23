@@ -22,8 +22,3 @@ def start_application():
 
 
 app = start_application()
-
-
-@app.get("/")
-def home():
-    return {"msg": "Hello FastAPI!"}
